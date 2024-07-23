@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: "orange-app-api"
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/your_db
+    username: your_user
+    password: your_password
+  jpa:
+    hibernate:
+      ddl-auto: none
+      show-sql: false
