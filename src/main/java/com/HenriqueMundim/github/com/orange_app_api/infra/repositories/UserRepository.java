@@ -20,4 +20,8 @@ public class UserRepository implements IUserRepository {
     public User findByUsername(String username) {
         return dao.findByUsername(username);
     }
+
+    public User save(User user) {
+        return dao.save(user);
+    }
 }

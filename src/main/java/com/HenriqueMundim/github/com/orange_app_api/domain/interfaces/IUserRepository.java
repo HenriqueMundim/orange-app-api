@@ -4,4 +4,5 @@ import com.HenriqueMundim.github.com.orange_app_api.domain.entities.User;
 
 public interface IUserRepository {
     User findByUsername(String username);
+    User save(User user);
 }

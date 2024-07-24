@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
+@Table(name = "users")
 public class User implements UserDetails {
 
     @Id
@@ -27,6 +28,16 @@ public class User implements UserDetails {
     private String password;
 
     private UserRole role;
+
+    public User() {}
+
+    public User(String name, String lastName, String email, String password, UserRole role) {
+        this.name = name;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+        this.role = role;
+    }
 
     public Integer getId() {
         return id;
@@ -85,5 +96,17 @@ public class User implements UserDetails {
     @Override
     public int hashCode() {
         return Objects.hash(id, email);
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", role=" + role +
+                '}';
     }
 }

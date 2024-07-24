@@ -1,8 +1,15 @@
 package com.HenriqueMundim.github.com.orange_app_api.infra.dto;
 
-public class UserLoginDTO {
+import java.io.Serial;
+import java.io.Serializable;
+
+public class UserLoginDTO implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = 1L;
 
     public String username;
+
     public String password;
 
     public UserLoginDTO(String username, String password) {

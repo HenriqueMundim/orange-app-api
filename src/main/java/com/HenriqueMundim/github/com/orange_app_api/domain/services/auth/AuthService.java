@@ -2,6 +2,7 @@ package com.HenriqueMundim.github.com.orange_app_api.domain.services.auth;
 
 import com.HenriqueMundim.github.com.orange_app_api.domain.entities.User;
 import com.HenriqueMundim.github.com.orange_app_api.domain.services.token.TokenService;
+import com.HenriqueMundim.github.com.orange_app_api.infra.dto.InputUserDto;
 import com.HenriqueMundim.github.com.orange_app_api.infra.dto.UserLoginDTO;
 import com.HenriqueMundim.github.com.orange_app_api.infra.repositories.UserRepository;
 import org.springframework.context.annotation.Lazy;
@@ -10,6 +11,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -35,7 +37,11 @@ public class AuthService implements UserDetailsService {
     public String authenticate(UserLoginDTO data) {
         var authToken = new UsernamePasswordAuthenticationToken(data.username, data.password);
         var auth = this.authenticationManager.authenticate(authToken);
-
         return tokenService.generateToken((User) auth.getPrincipal());
+    }
+
+    public User enroll(InputUserDto user) {
+        String encryptedPassword = new BCryptPasswordEncoder().encode(user.getPassword());
+        return userRepository.save(new User(user.getName(), user.getLastName(), user.getEmail(), encryptedPassword, user.getRole()));
     }
 }
