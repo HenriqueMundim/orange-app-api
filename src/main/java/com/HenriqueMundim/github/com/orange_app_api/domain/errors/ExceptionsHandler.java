@@ -20,4 +20,12 @@ public class ExceptionsHandler {
 
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).location(URI.create(location)).body(response);
     }
+
+    @ExceptionHandler(ResourceAlreadyExistsException.class)
+    public ResponseEntity<DefaultException> resourceAlreadyExistsExceptionHandler(ResourceAlreadyExistsException exception, WebRequest request) {
+        DefaultException response = new DefaultException(LocalDateTime.now(), exception.getMessage());
+        String location = request.getDescription(false).split("=")[1];
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).location(URI.create(location)).body(response);
+    }
  }

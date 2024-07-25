@@ -1,6 +1,7 @@
 package com.HenriqueMundim.github.com.orange_app_api.domain.services.auth;
 
 import com.HenriqueMundim.github.com.orange_app_api.domain.entities.User;
+import com.HenriqueMundim.github.com.orange_app_api.domain.errors.ResourceAlreadyExistsException;
 import com.HenriqueMundim.github.com.orange_app_api.domain.services.token.TokenService;
 import com.HenriqueMundim.github.com.orange_app_api.infra.dto.InputUserDto;
 import com.HenriqueMundim.github.com.orange_app_api.infra.dto.UserLoginDTO;
@@ -41,6 +42,12 @@ public class AuthService implements UserDetailsService {
     }
 
     public User enroll(InputUserDto user) {
+        User isExist = userRepository.findByUsername(user.getEmail());
+
+        if (isExist != null) {
+            throw new ResourceAlreadyExistsException("User already exists");
+        }
+
         String encryptedPassword = new BCryptPasswordEncoder().encode(user.getPassword());
         return userRepository.save(new User(user.getName(), user.getLastName(), user.getEmail(), encryptedPassword, user.getRole()));
     }
