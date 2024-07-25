@@ -10,3 +10,7 @@ spring:
     hibernate:
       ddl-auto: none
       show-sql: false
+api:
+  security:
+    token:
+      secret: your_secret
