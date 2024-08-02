@@ -26,6 +26,6 @@ public class ExceptionsHandler {
         DefaultException response = new DefaultException(LocalDateTime.now(), exception.getMessage());
         String location = request.getDescription(false).split("=")[1];
 
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).location(URI.create(location)).body(response);
+        return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).location(URI.create(location)).body(response);
     }
  }
