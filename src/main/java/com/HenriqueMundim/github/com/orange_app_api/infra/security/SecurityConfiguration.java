@@ -43,6 +43,11 @@ public class SecurityConfiguration {
                         .requestMatchers(HttpMethod.POST, "/enroll").permitAll()
                         .anyRequest().authenticated()
                 )
+                .oauth2Login(auth -> auth
+                        .loginPage("/login")
+                        .successHandler()
+                        .failureHandler()
+                )
                 .cors(Customizer.withDefaults())
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
