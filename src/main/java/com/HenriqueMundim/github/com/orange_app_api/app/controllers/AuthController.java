@@ -3,8 +3,10 @@ package com.HenriqueMundim.github.com.orange_app_api.app.controllers;
 import com.HenriqueMundim.github.com.orange_app_api.domain.entities.User;
 import com.HenriqueMundim.github.com.orange_app_api.domain.services.auth.AuthService;
 import com.HenriqueMundim.github.com.orange_app_api.infra.dto.InputUserDTO;
+import com.HenriqueMundim.github.com.orange_app_api.infra.dto.OutputUserDTO;
 import com.HenriqueMundim.github.com.orange_app_api.infra.dto.UserLoginDTO;
 import com.HenriqueMundim.github.com.orange_app_api.infra.dto.UserLoginResponseDTO;
+import com.HenriqueMundim.github.com.orange_app_api.infra.mapper.UserMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -31,8 +33,8 @@ public class AuthController {
     @PostMapping(
             value = "/enroll"
     )
-    public ResponseEntity<User> enroll(@RequestBody InputUserDTO data) {
+    public ResponseEntity<OutputUserDTO> enroll(@RequestBody InputUserDTO data) {
         User user = this.authService.enroll(data);
-        return ResponseEntity.status(HttpStatus.CREATED).body(user);
+        return ResponseEntity.status(HttpStatus.CREATED).body(UserMapper.toDomain(user));
     }
 }

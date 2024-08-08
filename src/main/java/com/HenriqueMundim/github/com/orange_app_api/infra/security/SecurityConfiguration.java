@@ -28,11 +28,13 @@ public class SecurityConfiguration {
 
     private final SecurityFilter securityFilter;
     private final GoogleAuthenticationSuccessHandler googleAuthenticationSuccessHandler;
+    private final GoogleAuthenticationFailureHandler googleAuthenticationFailureHandler;
 
     @Autowired
-    public SecurityConfiguration(SecurityFilter securityFilter, GoogleAuthenticationSuccessHandler googleAuthenticationSuccessHandler) {
+    public SecurityConfiguration(SecurityFilter securityFilter, GoogleAuthenticationSuccessHandler googleAuthenticationSuccessHandler, GoogleAuthenticationFailureHandler googleAuthenticationFailureHandler) {
         this.securityFilter = securityFilter;
         this.googleAuthenticationSuccessHandler = googleAuthenticationSuccessHandler;
+        this.googleAuthenticationFailureHandler = googleAuthenticationFailureHandler;
     }
 
     @Bean
@@ -48,6 +50,7 @@ public class SecurityConfiguration {
                 .oauth2Login(auth -> auth
                         .loginPage("/login")
                         .successHandler(this.googleAuthenticationSuccessHandler)
+                        .failureHandler(this.googleAuthenticationFailureHandler)
                 )
                 .cors(Customizer.withDefaults())
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
@@ -59,9 +62,11 @@ public class SecurityConfiguration {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(List.of("http://localhost:4200"));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PATCH", "PUT", "DELETE"));
-        configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type"));
+        configuration.setAllowedHeaders(List.of("*"));
+        configuration.setAllowCredentials(true);
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
+
         return source;
     }
 

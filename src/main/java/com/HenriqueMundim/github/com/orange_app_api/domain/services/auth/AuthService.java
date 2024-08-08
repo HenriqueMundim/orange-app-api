@@ -5,6 +5,7 @@ import com.HenriqueMundim.github.com.orange_app_api.domain.errors.ResourceAlread
 import com.HenriqueMundim.github.com.orange_app_api.domain.services.token.TokenService;
 import com.HenriqueMundim.github.com.orange_app_api.infra.dto.InputUserDTO;
 import com.HenriqueMundim.github.com.orange_app_api.infra.dto.UserLoginDTO;
+import com.HenriqueMundim.github.com.orange_app_api.infra.mapper.UserMapper;
 import com.HenriqueMundim.github.com.orange_app_api.infra.repositories.UserRepository;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -49,6 +50,8 @@ public class AuthService implements UserDetailsService {
         }
 
         String encryptedPassword = new BCryptPasswordEncoder().encode(user.getPassword());
-        return userRepository.save(new User(user.getName(), user.getLastName(), user.getEmail(), encryptedPassword, user.getRole()));
+        user.setPassword(encryptedPassword);
+
+        return userRepository.save(UserMapper.toEntity(user));
     }
 }
