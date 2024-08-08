@@ -5,7 +5,7 @@ import com.HenriqueMundim.github.com.orange_app_api.domain.enums.UserRole;
 import java.io.Serial;
 import java.io.Serializable;
 
-public class InputUserDto implements Serializable {
+public class InputUserDTO implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;

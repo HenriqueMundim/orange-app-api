@@ -2,7 +2,7 @@ package com.HenriqueMundim.github.com.orange_app_api.app.controllers;
 
 import com.HenriqueMundim.github.com.orange_app_api.domain.entities.User;
 import com.HenriqueMundim.github.com.orange_app_api.domain.services.auth.AuthService;
-import com.HenriqueMundim.github.com.orange_app_api.infra.dto.InputUserDto;
+import com.HenriqueMundim.github.com.orange_app_api.infra.dto.InputUserDTO;
 import com.HenriqueMundim.github.com.orange_app_api.infra.dto.UserLoginDTO;
 import com.HenriqueMundim.github.com.orange_app_api.infra.dto.UserLoginResponseDTO;
 import org.springframework.http.HttpStatus;
@@ -31,7 +31,7 @@ public class AuthController {
     @PostMapping(
             value = "/enroll"
     )
-    public ResponseEntity<User> enroll(@RequestBody InputUserDto data) {
+    public ResponseEntity<User> enroll(@RequestBody InputUserDTO data) {
         User user = this.authService.enroll(data);
         return ResponseEntity.status(HttpStatus.CREATED).body(user);
     }
