@@ -27,10 +27,12 @@ import java.util.List;
 public class SecurityConfiguration {
 
     private final SecurityFilter securityFilter;
+    private final GoogleAuthenticationSuccessHandler googleAuthenticationSuccessHandler;
 
     @Autowired
-    public SecurityConfiguration(SecurityFilter securityFilter) {
+    public SecurityConfiguration(SecurityFilter securityFilter, GoogleAuthenticationSuccessHandler googleAuthenticationSuccessHandler) {
         this.securityFilter = securityFilter;
+        this.googleAuthenticationSuccessHandler = googleAuthenticationSuccessHandler;
     }
 
     @Bean
@@ -45,8 +47,7 @@ public class SecurityConfiguration {
                 )
                 .oauth2Login(auth -> auth
                         .loginPage("/login")
-                        .successHandler()
-                        .failureHandler()
+                        .successHandler(this.googleAuthenticationSuccessHandler)
                 )
                 .cors(Customizer.withDefaults())
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
