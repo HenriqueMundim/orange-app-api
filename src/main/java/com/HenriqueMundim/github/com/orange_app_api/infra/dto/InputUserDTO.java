@@ -15,13 +15,10 @@ public class InputUserDTO implements Serializable {
 
     private String email;
 
-    private String username;
-
     private String lastName;
 
     private String password;
 
-    @JsonIgnore
     private UserRole role;
 
     public String getName() {
@@ -40,14 +37,6 @@ public class InputUserDTO implements Serializable {
         this.email = email;
     }
 
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
     public String getLastName() {
         return lastName;
     }
@@ -64,6 +53,7 @@ public class InputUserDTO implements Serializable {
         this.password = password;
     }
 
+    @JsonIgnore
     public UserRole getRole() {
         return role;
     }

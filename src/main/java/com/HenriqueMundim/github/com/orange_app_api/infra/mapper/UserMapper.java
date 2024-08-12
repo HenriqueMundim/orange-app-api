@@ -4,7 +4,6 @@ import com.HenriqueMundim.github.com.orange_app_api.domain.entities.User;
 import com.HenriqueMundim.github.com.orange_app_api.domain.enums.UserRole;
 import com.HenriqueMundim.github.com.orange_app_api.infra.dto.InputUserDTO;
 import com.HenriqueMundim.github.com.orange_app_api.infra.dto.OutputUserDTO;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class UserMapper {
 
@@ -24,7 +23,7 @@ public class UserMapper {
 
         response.setName(user.getName());
         response.setLastName(user.getLastName());
-        response.setEmail(user.getUsername());
+        response.setEmail(user.getEmail());
         response.setPassword(user.getPassword());
         response.setRole(UserRole.USER);
 
