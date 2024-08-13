@@ -1,11 +1,12 @@
 package com.HenriqueMundim.github.com.orange_app_api.infra.dto;
 
 import com.HenriqueMundim.github.com.orange_app_api.domain.enums.UserRole;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.io.Serial;
 import java.io.Serializable;
 
-public class InputUserDto implements Serializable {
+public class InputUserDTO implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -13,8 +14,6 @@ public class InputUserDto implements Serializable {
     private String name;
 
     private String email;
-
-    private String username;
 
     private String lastName;
 
@@ -38,14 +37,6 @@ public class InputUserDto implements Serializable {
         this.email = email;
     }
 
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
     public String getLastName() {
         return lastName;
     }
@@ -62,6 +53,7 @@ public class InputUserDto implements Serializable {
         this.password = password;
     }
 
+    @JsonIgnore
     public UserRole getRole() {
         return role;
     }
