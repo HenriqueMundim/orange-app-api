@@ -1,7 +1,8 @@
 package com.HenriqueMundim.github.com.orange_app_api.app.controllers;
 
+import com.HenriqueMundim.github.com.orange_app_api.domain.services.user.UserService;
 import com.HenriqueMundim.github.com.orange_app_api.infra.dto.OutputUserDTO;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,13 +16,14 @@ public class UserController {
 
     private final UserService userService;
 
-    @Autowired
     public UserController(UserService userService) {
         this.userService = userService;
     }
 
     @GetMapping
     public ResponseEntity<OutputUserDTO> getUserInfo(@AuthenticationPrincipal UserDetails userDetails) {
-        return userService.getUser();
+        OutputUserDTO userInfo = userService.getUserByUsername(userDetails.getUsername());
+
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(userInfo);
     }
 }
