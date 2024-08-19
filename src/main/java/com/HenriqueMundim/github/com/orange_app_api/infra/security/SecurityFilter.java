@@ -37,24 +37,28 @@ public class SecurityFilter extends OncePerRequestFilter {
                 String username = this.tokenService.validateToken(token);
                 User user = this.userRepository.findByUsername(username);
 
-                var auth = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
+                if (user != null) {
+                    var auth = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
+                    SecurityContextHolder.getContext().setAuthentication(auth);
+                } else {
+                    SecurityContextHolder.getContext().setAuthentication(null);
+                }
 
-                SecurityContextHolder.getContext().setAuthentication(auth);
             }
 
             filterChain.doFilter(request, response);
 
         } catch (Exception exception) {
-            System.out.println(exception.getMessage());
+            System.out.println(exception.getStackTrace());
         }
     }
 
     private String recoverToken(HttpServletRequest request) {
-        var authorization = request.getHeader("Authorization");
-        if (authorization == null) {
-            return null;
+        String authorization = request.getHeader("Authorization");
+        
+        if (authorization != null && authorization.startsWith("Bearer ")) {
+            return authorization.substring(7).trim(); 
         }
-
-        return authorization.replace("Bearer ", "");
+        return null; 
     }
 }

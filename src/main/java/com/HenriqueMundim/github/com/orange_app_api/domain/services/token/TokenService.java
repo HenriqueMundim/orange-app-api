@@ -37,7 +37,7 @@ public class TokenService {
     public String validateToken(String token) {
         try {
             Algorithm algorithm = Algorithm.HMAC256(tokenSecret);
-
+            
             return JWT.require(algorithm)
                     .withIssuer("orange-app")
                     .build()
@@ -45,7 +45,7 @@ public class TokenService {
                     .getSubject();
 
         } catch (JWTVerificationException exception) {
-            System.out.println(exception.getMessage());
+        	System.out.println(exception.getMessage());
             return "";
         }
     }

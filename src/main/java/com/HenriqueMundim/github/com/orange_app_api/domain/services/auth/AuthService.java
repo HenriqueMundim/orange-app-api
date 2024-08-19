@@ -39,6 +39,8 @@ public class AuthService implements UserDetailsService {
     public String authenticate(UserLoginDTO data) {
         var authToken = new UsernamePasswordAuthenticationToken(data.username, data.password);
         var auth = this.authenticationManager.authenticate(authToken);
+        System.out.println(this.authenticationManager.authenticate(authToken));
+        System.out.println(tokenService.generateToken((User) auth.getPrincipal()));
         return tokenService.generateToken((User) auth.getPrincipal());
     }
 
