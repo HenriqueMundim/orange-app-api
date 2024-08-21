@@ -21,7 +21,15 @@ public class InputUserDTO implements Serializable {
 
     private UserRole role;
 
-    public String getName() {
+    public InputUserDTO(String name, String email, String lastName, String password, UserRole role) {
+		this.name = name;
+		this.email = email;
+		this.lastName = lastName;
+		this.password = password;
+		this.role = role;
+	}
+
+	public String getName() {
         return name;
     }
 
