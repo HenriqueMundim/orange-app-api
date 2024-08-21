@@ -28,6 +28,9 @@ public class User implements UserDetails {
     private String password;
 
     private UserRole role;
+    
+    @OneToMany(mappedBy = "author")
+    private List<Project> projects;
 
     public User() {}
 
