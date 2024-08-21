@@ -1,5 +1,6 @@
 package com.HenriqueMundim.github.com.orange_app_api.domain.entities;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 import jakarta.persistence.Column;
@@ -13,8 +14,10 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "projects")
-public class Project {
-	
+public class Project implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
