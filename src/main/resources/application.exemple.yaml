@@ -10,7 +10,15 @@ spring:
     hibernate:
       ddl-auto: none
       show-sql: false
+  security:
+      oauth2:
+        client:
+          registration:
+            google:
+              client-id: YOUR_ID
+              client-secret: YOUR_SECRET
 api:
   security:
     token:
       secret: your_secret
+      
