@@ -12,13 +12,13 @@ import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 @Configuration
 public class AwsConfig {
 	
-	@Value("aws.access.key.id")
+	@Value("${aws.access.key.id}")
 	private String accessKeyId;
 	
-	@Value("aws.access.key.secret")
+	@Value("${aws.access.key.secret}")
 	private String accessKeySecret;
 	
-	@Value("aws.region.name")
+	@Value("${aws.region.name}")
 	private String region;
 
     @Bean
