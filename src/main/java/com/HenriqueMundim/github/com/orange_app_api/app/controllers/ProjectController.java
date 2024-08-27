@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.HenriqueMundim.github.com.orange_app_api.domain.entities.Project;
 import com.HenriqueMundim.github.com.orange_app_api.domain.services.project.ProjectService;
 import com.HenriqueMundim.github.com.orange_app_api.infra.dto.UsersProjectDTO;
 
@@ -31,3 +30,4 @@ public class ProjectController {
 		return ResponseEntity.status(HttpStatus.OK).body(this.projectService.findAllByUser(id, page, size));
 	}
 }
+   
