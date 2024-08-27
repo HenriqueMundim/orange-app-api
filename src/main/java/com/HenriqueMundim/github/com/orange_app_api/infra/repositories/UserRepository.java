@@ -3,6 +3,9 @@ package com.HenriqueMundim.github.com.orange_app_api.infra.repositories;
 import com.HenriqueMundim.github.com.orange_app_api.domain.entities.User;
 import com.HenriqueMundim.github.com.orange_app_api.domain.interfaces.IUserRepository;
 import com.HenriqueMundim.github.com.orange_app_api.infra.daos.UserDao;
+
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -23,5 +26,9 @@ public class UserRepository implements IUserRepository {
 
     public User save(User user) {
         return dao.save(user);
+    }
+    
+    public Optional<User> findById(Integer id) {
+    	return this.dao.findById(id);
     }
 }
