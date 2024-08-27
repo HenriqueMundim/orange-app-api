@@ -29,5 +29,4 @@ public class ProjectController {
 	) {
 		return ResponseEntity.status(HttpStatus.OK).body(this.projectService.findAllByUser(id, page, size));
 	}
-
 }
