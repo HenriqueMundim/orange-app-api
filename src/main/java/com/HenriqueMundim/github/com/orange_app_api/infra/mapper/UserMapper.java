@@ -6,7 +6,7 @@ import com.HenriqueMundim.github.com.orange_app_api.infra.dto.InputUserDTO;
 import com.HenriqueMundim.github.com.orange_app_api.infra.dto.OutputUserDTO;
 
 public class UserMapper {
-
+	
     public static OutputUserDTO toDomain(User user) {
         OutputUserDTO response = new OutputUserDTO();
 
@@ -29,4 +29,5 @@ public class UserMapper {
 
         return response;
     }
+    
 }

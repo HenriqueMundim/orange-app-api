@@ -9,6 +9,7 @@ import com.HenriqueMundim.github.com.orange_app_api.domain.entities.Project;
 import com.HenriqueMundim.github.com.orange_app_api.domain.entities.User;
 import com.HenriqueMundim.github.com.orange_app_api.domain.errors.ResourceNotFoundException;
 import com.HenriqueMundim.github.com.orange_app_api.infra.dto.CreateProjectDTO;
+import com.HenriqueMundim.github.com.orange_app_api.infra.dto.OutputProjectDTO;
 import com.HenriqueMundim.github.com.orange_app_api.infra.dto.UsersProjectDTO;
 import com.HenriqueMundim.github.com.orange_app_api.infra.mapper.ProjectMapper;
 import com.HenriqueMundim.github.com.orange_app_api.infra.repositories.ProjectRepository;
@@ -41,7 +42,7 @@ public class ProjectService {
 		return result.map(ProjectMapper::toDomainWithoutUser);
 	}
  	
-	public Project save(CreateProjectDTO projectDTO) {
+	public OutputProjectDTO save(CreateProjectDTO projectDTO) {
 		User author = this.userRepository.findById(projectDTO.getUserId()).orElse(null);
 		
 		if(author == null) {
@@ -51,6 +52,6 @@ public class ProjectService {
 		Project newProject = ProjectMapper.toEntity(projectDTO);
 		newProject.setAuthor(author);
 		
-		return this.projectRepository.save(newProject);
+		return ProjectMapper.toDomainWithuser(this.projectRepository.save(newProject));
 	}
 }
