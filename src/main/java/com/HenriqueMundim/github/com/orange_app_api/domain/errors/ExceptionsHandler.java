@@ -28,4 +28,12 @@ public class ExceptionsHandler {
 
         return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).location(URI.create(location)).body(response);
     }
+    
+    @ExceptionHandler(ResourceNotFoundException.class) 
+    public ResponseEntity<DefaultException> resourceNotFoundException(ResourceNotFoundException exception, WebRequest request) {
+    	DefaultException response = new DefaultException(LocalDateTime.now(), exception.getMessage());
+    	String location = request.getDescription(false).split("=")[1];
+    	
+    	return ResponseEntity.status(HttpStatus.NOT_FOUND).location(URI.create(location)).body(response);
+    }
  }
