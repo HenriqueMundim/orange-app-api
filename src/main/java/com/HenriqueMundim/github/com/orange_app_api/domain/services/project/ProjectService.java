@@ -1,6 +1,5 @@
 package com.HenriqueMundim.github.com.orange_app_api.domain.services.project;
 
-import org.hibernate.internal.ExceptionConverterImpl;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
@@ -26,7 +25,6 @@ public class ProjectService {
 		if(isExists == null) {
 			throw new Exception("Error");
 		}
-		
 		
 		return this.projectRepository.findAllByUser(id, page, size);
 	}
