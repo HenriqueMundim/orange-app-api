@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 import com.HenriqueMundim.github.com.orange_app_api.domain.entities.Project;
 import com.HenriqueMundim.github.com.orange_app_api.domain.entities.User;
 import com.HenriqueMundim.github.com.orange_app_api.domain.errors.ResourceNotFoundException;
+import com.HenriqueMundim.github.com.orange_app_api.infra.dto.UsersProjectDTO;
+import com.HenriqueMundim.github.com.orange_app_api.infra.mapper.ProjectMapper;
 import com.HenriqueMundim.github.com.orange_app_api.infra.repositories.ProjectRepository;
 import com.HenriqueMundim.github.com.orange_app_api.infra.repositories.UserRepository;
 
@@ -20,14 +22,20 @@ public class ProjectService {
 		this.userRepository = userRepository;
 	}
 	
-	public Page<Project> findAllByUser(Integer id, Integer page, Integer size) {
+	public Page<UsersProjectDTO> findAllByUser(Integer id, Integer page, Integer size) {
 		User isExists = this.userRepository.findById(id).orElse(null);
 		
 		if(isExists == null) {
 			throw new ResourceNotFoundException("User with this ID not found!");
 		}
 		
-		return this.projectRepository.findAllByUser(id, page, size);
+		Page<Project> result = this.projectRepository.findAllByUser(id, page, size);
+		
+		if (result.isEmpty()) {
+			return null;
+		}
+		
+		return result.map(ProjectMapper::toDomainWithoutUser);
 	}
  	
 }

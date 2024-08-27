@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.HenriqueMundim.github.com.orange_app_api.domain.entities.Project;
 import com.HenriqueMundim.github.com.orange_app_api.domain.services.project.ProjectService;
+import com.HenriqueMundim.github.com.orange_app_api.infra.dto.UsersProjectDTO;
 
 @RestController
 @RequestMapping(value = "/projects")
@@ -22,7 +23,7 @@ public class ProjectController {
 	}
 	
 	@GetMapping
-	public ResponseEntity<Page<Project>> GetAllUserProjects(
+	public ResponseEntity<Page<UsersProjectDTO>> GetAllUserProjects(
 		@RequestParam Integer id,
 		@RequestParam(defaultValue = "0") Integer page,
 		@RequestParam(defaultValue = "9") Integer size
