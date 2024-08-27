@@ -1,11 +1,14 @@
 package com.HenriqueMundim.github.com.orange_app_api.domain.services.project;
 
+import java.util.Optional;
+
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import com.HenriqueMundim.github.com.orange_app_api.domain.entities.Project;
 import com.HenriqueMundim.github.com.orange_app_api.domain.entities.User;
 import com.HenriqueMundim.github.com.orange_app_api.domain.errors.ResourceNotFoundException;
+import com.HenriqueMundim.github.com.orange_app_api.infra.dto.CreateProjectDTO;
 import com.HenriqueMundim.github.com.orange_app_api.infra.dto.UsersProjectDTO;
 import com.HenriqueMundim.github.com.orange_app_api.infra.mapper.ProjectMapper;
 import com.HenriqueMundim.github.com.orange_app_api.infra.repositories.ProjectRepository;
@@ -38,4 +41,16 @@ public class ProjectService {
 		return result.map(ProjectMapper::toDomainWithoutUser);
 	}
  	
+	public Project save(CreateProjectDTO projectDTO) {
+		User author = this.userRepository.findById(projectDTO.getUserId()).orElse(null);
+		
+		if(author == null) {
+			throw new ResourceNotFoundException("User with this ID not found!");
+		}
+		
+		Project newProject = ProjectMapper.toEntity(projectDTO);
+		newProject.setAuthor(author);
+		
+		return this.projectRepository.save(newProject);
+	}
 }

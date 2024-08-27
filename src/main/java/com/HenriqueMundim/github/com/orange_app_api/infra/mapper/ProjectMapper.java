@@ -1,10 +1,11 @@
 package com.HenriqueMundim.github.com.orange_app_api.infra.mapper;
 
 import com.HenriqueMundim.github.com.orange_app_api.domain.entities.Project;
+import com.HenriqueMundim.github.com.orange_app_api.infra.dto.CreateProjectDTO;
 import com.HenriqueMundim.github.com.orange_app_api.infra.dto.UsersProjectDTO;
 
 public class ProjectMapper {
-	
+		
 	public static UsersProjectDTO toDomainWithoutUser(Project project) {
 		UsersProjectDTO projectsDTO = new UsersProjectDTO();
 		
@@ -15,5 +16,16 @@ public class ProjectMapper {
 		projectsDTO.setImageUrl(project.getImageUrl());
 		
 		return projectsDTO;
+	}
+	
+	public static Project toEntity(CreateProjectDTO projectDTO) {
+		Project project = new Project();
+		
+		project.setTitle(projectDTO.getTitle());
+		project.setLink(projectDTO.getLink());
+		project.setDescription(projectDTO.getDescription());
+		project.setImageUrl(projectDTO.getImageUrl());
+		
+		return project;
 	}
 }

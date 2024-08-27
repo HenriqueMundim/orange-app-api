@@ -21,6 +21,11 @@ public class ProjectRepository implements IProjectRepository{
 		Pageable pageable = PageRequest.of(page, size);
 		return dao.findByUser(id, pageable);
 	}
+
+	@Override
+	public Project save(Project project) {
+		return dao.save(project);
+	}
 	
 
 }
