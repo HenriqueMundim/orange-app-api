@@ -7,9 +7,10 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import com.HenriqueMundim.github.com.orange_app_api.domain.entities.Project;
+import com.HenriqueMundim.github.com.orange_app_api.domain.entities.User;
 
 @Repository
 public interface ProjectDAO extends JpaRepository<Project, Integer> {
-	@Query("SELECT pr FROM Project pr WHERE pr.user_id = ?1")
-	Page<Project> findByUser(Integer id, Pageable pageable);
+	@Query("SELECT pr FROM Project pr WHERE pr.author = ?1")
+	Page<Project> findByUser(User user, Pageable pageable);
 }

@@ -3,11 +3,14 @@ package com.HenriqueMundim.github.com.orange_app_api.infra.repositories;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Repository;
 
 import com.HenriqueMundim.github.com.orange_app_api.domain.entities.Project;
+import com.HenriqueMundim.github.com.orange_app_api.domain.entities.User;
 import com.HenriqueMundim.github.com.orange_app_api.domain.interfaces.IProjectRepository;
 import com.HenriqueMundim.github.com.orange_app_api.infra.daos.ProjectDAO;
 
+@Repository
 public class ProjectRepository implements IProjectRepository{
 	
 	private final ProjectDAO dao;
@@ -17,9 +20,9 @@ public class ProjectRepository implements IProjectRepository{
 	}
 
 	@Override
-	public Page<Project> findAllByUser(Integer id, Integer page, Integer size) {
+	public Page<Project> findAllByUser(User user, Integer page, Integer size) {
 		Pageable pageable = PageRequest.of(page, size);
-		return dao.findByUser(id, pageable);
+		return dao.findByUser(user, pageable);
 	}
 
 	@Override

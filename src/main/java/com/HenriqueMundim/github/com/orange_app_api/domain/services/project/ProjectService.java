@@ -1,7 +1,5 @@
 package com.HenriqueMundim.github.com.orange_app_api.domain.services.project;
 
-import java.util.Optional;
-
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
@@ -33,7 +31,7 @@ public class ProjectService {
 			throw new ResourceNotFoundException("User with this ID not found!");
 		}
 		
-		Page<Project> result = this.projectRepository.findAllByUser(id, page, size);
+		Page<Project> result = this.projectRepository.findAllByUser(isExists, page, size);
 		
 		if (result.isEmpty()) {
 			return null;
