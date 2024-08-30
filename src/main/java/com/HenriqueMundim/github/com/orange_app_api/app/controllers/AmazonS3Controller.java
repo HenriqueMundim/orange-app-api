@@ -27,7 +27,6 @@ public class AmazonS3Controller {
 	
 	@GetMapping(value = "/upload")
 	public ResponseEntity<PresignedUrl> generateUploadUrl(@RequestParam String objectKey) {
-		System.out.println("OK");
 		String url = this.s3Service.generatePresignedUrl(bucket, objectKey, HttpMethod.PUT);
 		
 		return ResponseEntity.status(HttpStatus.OK).body(new PresignedUrl(url));
