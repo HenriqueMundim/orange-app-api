@@ -1,5 +1,10 @@
 package com.HenriqueMundim.github.com.orange_app_api.infra.dto;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import com.HenriqueMundim.github.com.orange_app_api.domain.entities.CategoryProject;
+
 public class CreateProjectDTO {
 	
 	private Integer id;
@@ -8,16 +13,18 @@ public class CreateProjectDTO {
 	private String description;
 	private String imageUrl;
 	private Integer userId;
+	private Set<Integer> categories = new HashSet<>();
 	
 	public CreateProjectDTO() {}
 	
-	public CreateProjectDTO(Integer id, String title, String link, String description, String imageUrl, Integer userId) {
+	public CreateProjectDTO(Integer id, String title, String link, String description, String imageUrl, Integer userId, Set<Integer> categories) {
 		this.id = id;
 		this.title = title;
 		this.link = link;
 		this.description = description;
 		this.imageUrl = imageUrl;
 		this.userId = userId;
+		this.categories = categories;
 	}
 
 	public Integer getId() {
@@ -68,4 +75,11 @@ public class CreateProjectDTO {
 		this.userId = userId;
 	}
 	
+	public Set<Integer> getCategories() {
+		return categories;
+	}
+
+	public void setCategories(Set<Integer> categories) {
+		this.categories = categories;
+	}
 }

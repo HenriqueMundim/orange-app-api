@@ -15,6 +15,7 @@ public class ProjectMapper {
 		projectsDTO.setLink(project.getLink());
 		projectsDTO.setDescription(project.getDescription());
 		projectsDTO.setImageUrl(project.getImageUrl());
+		projectsDTO.setCategories(project.getCategories());
 		
 		return projectsDTO;
 	}

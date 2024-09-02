@@ -27,4 +27,42 @@ public class CategoryProject implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "category_id")
 	private Category category;
+	
+	public CategoryProject() {}
+	
+	public CategoryProject(Integer id, Project project, Category category) {
+		this.id = id;
+		this.project = project;
+		this.category = category;
+	}
+	
+	public CategoryProject(Project project, Category category) {
+		this.project = project;
+		this.category = category;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public Project getProject() {
+		return project;
+	}
+
+	public void setProject(Project project) {
+		this.project = project;
+	}
+
+	public Category getCategory() {
+		return category;
+	}
+
+	public void setCategory(Category category) {
+		this.category = category;
+	}
+	
 }

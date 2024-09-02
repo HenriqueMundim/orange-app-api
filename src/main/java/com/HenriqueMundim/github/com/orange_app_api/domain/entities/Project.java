@@ -101,6 +101,14 @@ public class Project implements Serializable {
 	public void setAuthor(User author) {
 		this.author = author;
 	}
+	
+	public Set<CategoryProject> getCategories() {
+		return categories;
+	}
+
+	public void setCategories(Set<CategoryProject> categories) {
+		this.categories = categories;
+	}
 
 	@Override
 	public int hashCode() {
