@@ -27,6 +27,7 @@ public class ProjectMapper {
 		project.setLink(projectDTO.getLink());
 		project.setDescription(projectDTO.getDescription());
 		project.setImageUrl(projectDTO.getImageUrl());
+		project.setCategories(projectDTO.getCategories());
 		
 		return project;
 	}
@@ -40,6 +41,7 @@ public class ProjectMapper {
 		projectDTO.setDescription(project.getDescription());
 		projectDTO.setImageUrl(project.getImageUrl()); 
 		projectDTO.setAuthor(UserMapper.toDomain(project.getAuthor()));
+		projectDTO.setCategories(project.getCategories());
 		
 		return projectDTO;
     }

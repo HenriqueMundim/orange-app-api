@@ -11,8 +11,9 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -41,8 +42,17 @@ public class Project implements Serializable {
 	@JoinColumn(name = "user_id", nullable = false)
 	private User author;
 	
-	@OneToMany(mappedBy = "project")
-	private Set<CategoryProject> categories = new HashSet<CategoryProject>();
+	@ManyToMany
+	@JoinTable(
+			name = "category_project",
+			joinColumns = {
+					@JoinColumn(name = "project_id", referencedColumnName = "id")
+			},
+			inverseJoinColumns = {
+					@JoinColumn(name = "category_id", referencedColumnName = "id")
+			}
+	)
+	private Set<Category> categories = new HashSet<Category>();
 	
 	public Project() {}
 	
@@ -102,11 +112,11 @@ public class Project implements Serializable {
 		this.author = author;
 	}
 	
-	public Set<CategoryProject> getCategories() {
+	public Set<Category> getCategories() {
 		return categories;
 	}
 
-	public void setCategories(Set<CategoryProject> categories) {
+	public void setCategories(Set<Category> categories) {
 		this.categories = categories;
 	}
 

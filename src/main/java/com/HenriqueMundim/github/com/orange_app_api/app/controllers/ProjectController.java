@@ -36,7 +36,7 @@ public class ProjectController {
 	
 	@PostMapping
 	public ResponseEntity<OutputProjectDTO> RegisterProject(@RequestBody CreateProjectDTO project) {
-		return ResponseEntity.status(HttpStatus.CREATED).body(this.projectService.save(project));
+  		return ResponseEntity.status(HttpStatus.CREATED).body(this.projectService.save(project));
 	}
 }
    

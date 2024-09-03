@@ -3,7 +3,7 @@ package com.HenriqueMundim.github.com.orange_app_api.infra.dto;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.HenriqueMundim.github.com.orange_app_api.domain.entities.CategoryProject;
+import com.HenriqueMundim.github.com.orange_app_api.domain.entities.Category;
 
 public class UsersProjectDTO {
 	
@@ -12,11 +12,11 @@ public class UsersProjectDTO {
 	private String link;
 	private String description;
 	private String imageUrl;
-	private Set<CategoryProject> categories = new HashSet<CategoryProject>();
+	private Set<Category> categories = new HashSet<Category>();
 	
 	public UsersProjectDTO() {}
 	
-	public UsersProjectDTO(Integer id, String title, String link, String description, String imageUrl, Set<CategoryProject> categories) {
+	public UsersProjectDTO(Integer id, String title, String link, String description, String imageUrl, Set<Category> categories) {
 		this.id = id;
 		this.title = title;
 		this.link = link;
@@ -65,11 +65,11 @@ public class UsersProjectDTO {
 		this.imageUrl = imageUrl;
 	}
 
-	public Set<CategoryProject> getCategories() {
+	public Set<Category> getCategories() {
 		return categories;
 	}
 
-	public void setCategories(Set<CategoryProject> categories) {
+	public void setCategories(Set<Category> categories) {
 		this.categories = categories;
 	} 
 }

@@ -1,6 +1,7 @@
 package com.HenriqueMundim.github.com.orange_app_api.infra.repositories;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Repository;
 
@@ -19,6 +20,10 @@ public class CategoryRepository implements ICategoryRepository {
 
 	public List<Category> findAll() {
 		return this.dao.findAll();
+	}
+
+	public Optional<Category> findById(Integer id) {
+		return this.dao.findById(id);
 	}
 	
 }

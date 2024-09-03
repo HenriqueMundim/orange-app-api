@@ -23,7 +23,6 @@ public class CategoryController {
 	
 	@GetMapping
 	public ResponseEntity<List<Category>> getAll() {
-		System.out.println("OK");
 		return ResponseEntity.status(HttpStatus.OK).body(this.categoryService.findAll());
 	}
 }

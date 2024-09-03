@@ -10,7 +10,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -25,8 +25,8 @@ public class Category implements Serializable {
 	
 	private String name;
 	
-	@OneToMany(mappedBy = "category")
-	private Set<CategoryProject> projects = new HashSet<CategoryProject>();
+	@ManyToMany(mappedBy = "categories")
+	private Set<Project> projects = new HashSet<Project>();
 	
 	public Category() {}
 	
@@ -52,11 +52,12 @@ public class Category implements Serializable {
 	}
 	
 	@JsonIgnore
-	public Set<CategoryProject> getProjects() {
+	public Set<Project> getProjects() {
 		return projects;
 	}
 
-	public void setProjects(Set<CategoryProject> projects) {
+	public void setProjects(Set<Project> projects) {
 		this.projects = projects;
 	}
+	
 }
