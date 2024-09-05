@@ -3,7 +3,9 @@ package com.HenriqueMundim.github.com.orange_app_api.app.controllers;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,7 +28,7 @@ public class ProjectController {
 	}
 	
 	@GetMapping
-	public ResponseEntity<Page<UsersProjectDTO>> GetAllUserProjects(
+	public ResponseEntity<Page<UsersProjectDTO>> getAllUserProjects(
 		@RequestParam Integer id,
 		@RequestParam(defaultValue = "0") Integer page,
 		@RequestParam(defaultValue = "9") Integer size
@@ -35,8 +37,14 @@ public class ProjectController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<OutputProjectDTO> RegisterProject(@RequestBody CreateProjectDTO project) {
+	public ResponseEntity<OutputProjectDTO> registerProject(@RequestBody CreateProjectDTO project) {
   		return ResponseEntity.status(HttpStatus.CREATED).body(this.projectService.save(project));
+	}
+	
+	@DeleteMapping("/{id}")
+	public ResponseEntity<Void> deleteProject(@PathVariable Integer id) {
+		this.projectService.delete(id);
+		return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 	}
 }
    

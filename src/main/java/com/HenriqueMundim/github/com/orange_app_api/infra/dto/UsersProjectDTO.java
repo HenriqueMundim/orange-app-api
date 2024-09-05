@@ -13,16 +13,18 @@ public class UsersProjectDTO {
 	private String description;
 	private String imageUrl;
 	private Set<Category> categories = new HashSet<Category>();
+	private OutputUserDTO author;
 	
 	public UsersProjectDTO() {}
 	
-	public UsersProjectDTO(Integer id, String title, String link, String description, String imageUrl, Set<Category> categories) {
+	public UsersProjectDTO(Integer id, String title, String link, String description, String imageUrl, Set<Category> categories, OutputUserDTO author) {
 		this.id = id;
 		this.title = title;
 		this.link = link;
 		this.description = description;
 		this.imageUrl = imageUrl;
 		this.categories = categories;
+		this.author = author;
 	}
 
 	public Integer getId() {
@@ -71,5 +73,13 @@ public class UsersProjectDTO {
 
 	public void setCategories(Set<Category> categories) {
 		this.categories = categories;
+	}
+
+	public OutputUserDTO getAuthor() {
+		return author;
+	}
+
+	public void setAuthor(OutputUserDTO author) {
+		this.author = author;
 	} 
 }

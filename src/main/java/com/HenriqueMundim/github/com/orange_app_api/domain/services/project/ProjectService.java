@@ -52,4 +52,12 @@ public class ProjectService {
 		
 		return ProjectMapper.toDomainWithuser(this.projectRepository.save(newProject));
 	}
+	
+	public void delete(Integer id) {
+		Project isExist = this.projectRepository.findById(id)
+				.orElseThrow(() -> { 
+					throw new ResourceNotFoundException("Project with this ID not found"); 
+				});
+		this.projectRepository.delete(isExist);
+	}
 }

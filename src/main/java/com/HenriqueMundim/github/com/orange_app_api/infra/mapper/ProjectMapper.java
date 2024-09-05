@@ -42,6 +42,7 @@ public class ProjectMapper {
 		projectDTO.setImageUrl(project.getImageUrl()); 
 		projectDTO.setAuthor(UserMapper.toDomain(project.getAuthor()));
 		projectDTO.setCategories(project.getCategories());
+		projectDTO.setAuthor(UserMapper.toDomain(project.getAuthor()));
 		
 		return projectDTO;
     }

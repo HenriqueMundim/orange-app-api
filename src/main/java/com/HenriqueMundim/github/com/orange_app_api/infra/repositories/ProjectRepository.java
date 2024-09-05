@@ -1,5 +1,7 @@
 package com.HenriqueMundim.github.com.orange_app_api.infra.repositories;
 
+import java.util.Optional;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -29,6 +31,17 @@ public class ProjectRepository implements IProjectRepository{
 	public Project save(Project project) {
 		return dao.save(project);
 	}
+
+	@Override
+	public void delete(Project project) {
+		this.dao.delete(project);
+	}
+
+	@Override
+	public Optional<Project> findById(Integer id) {
+		return this.dao.findById(id);
+	}
+	
 	
 
 }
