@@ -40,8 +40,6 @@ public class ProjectRepository implements IProjectRepository{
 	@Override
 	public Optional<Project> findById(Integer id) {
 		return this.dao.findById(id);
-	}
-	
-	
+	}	
 
 }

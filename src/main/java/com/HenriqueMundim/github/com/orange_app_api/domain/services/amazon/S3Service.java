@@ -33,4 +33,8 @@ public class S3Service {
 		
 		return url.toString();
 	}
+	
+	public void delete(String bucketName, String objectkey) {
+		this.amazonS3.deleteObject(bucketName, objectkey);
+	}
 }
