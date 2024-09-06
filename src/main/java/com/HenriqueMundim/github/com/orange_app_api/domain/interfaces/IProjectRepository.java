@@ -12,4 +12,5 @@ public interface IProjectRepository {
 	Project save(Project project);
 	void delete(Project project);
 	Optional<Project> findById(Integer id);
+	Project update(Project project);
 }

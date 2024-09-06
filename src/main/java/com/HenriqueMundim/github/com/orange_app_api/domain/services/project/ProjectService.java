@@ -7,11 +7,14 @@ import com.HenriqueMundim.github.com.orange_app_api.domain.entities.Project;
 import com.HenriqueMundim.github.com.orange_app_api.domain.entities.User;
 import com.HenriqueMundim.github.com.orange_app_api.domain.errors.ResourceNotFoundException;
 import com.HenriqueMundim.github.com.orange_app_api.infra.dto.CreateProjectDTO;
+import com.HenriqueMundim.github.com.orange_app_api.infra.dto.InputProjectDTO;
 import com.HenriqueMundim.github.com.orange_app_api.infra.dto.OutputProjectDTO;
 import com.HenriqueMundim.github.com.orange_app_api.infra.dto.UsersProjectDTO;
 import com.HenriqueMundim.github.com.orange_app_api.infra.mapper.ProjectMapper;
 import com.HenriqueMundim.github.com.orange_app_api.infra.repositories.ProjectRepository;
 import com.HenriqueMundim.github.com.orange_app_api.infra.repositories.UserRepository;
+
+import jakarta.transaction.Transactional;
 
 @Service
 public class ProjectService {
@@ -24,7 +27,7 @@ public class ProjectService {
 		this.userRepository = userRepository;
 	}
 	
-	public Page<UsersProjectDTO> findAllByUser(Integer id, Integer page, Integer size) {
+	public Page<OutputProjectDTO> findAllByUser(Integer id, Integer page, Integer size) {
 		User isExists = this.userRepository.findById(id).orElse(null);
 		
 		if(isExists == null) {
@@ -37,7 +40,7 @@ public class ProjectService {
 			return null;
 		}
 		
-		return result.map(ProjectMapper::toDomainWithoutUser);
+		return result.map(ProjectMapper::toDomainWithuser);
 	}
  	
 	public OutputProjectDTO save(CreateProjectDTO projectDTO) {
@@ -58,7 +61,18 @@ public class ProjectService {
 				.orElseThrow(() -> { 
 					throw new ResourceNotFoundException("Project with this ID not found"); 
 				});
+		
 		this.projectRepository.delete(isExist);
+	}
+	
+	public OutputProjectDTO updateProject (InputProjectDTO project) {
+		User user = this.userRepository.findById(project.getAuthor().getId())
+				.orElseThrow(() -> { throw new ResourceNotFoundException("User with this ID not found!"); });
+		
+		this.projectRepository.findById(project.getId())
+				.orElseThrow(() -> { throw new ResourceNotFoundException("Project with this ID not found!"); });
+		
+		return ProjectMapper.toDomainWithuser(this.projectRepository.update(ProjectMapper.toEntityWithId(project, user)));
 	}
   
 }

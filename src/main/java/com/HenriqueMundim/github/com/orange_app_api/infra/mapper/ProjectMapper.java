@@ -1,7 +1,9 @@
 package com.HenriqueMundim.github.com.orange_app_api.infra.mapper;
 
 import com.HenriqueMundim.github.com.orange_app_api.domain.entities.Project;
+import com.HenriqueMundim.github.com.orange_app_api.domain.entities.User;
 import com.HenriqueMundim.github.com.orange_app_api.infra.dto.CreateProjectDTO;
+import com.HenriqueMundim.github.com.orange_app_api.infra.dto.InputProjectDTO;
 import com.HenriqueMundim.github.com.orange_app_api.infra.dto.OutputProjectDTO;
 import com.HenriqueMundim.github.com.orange_app_api.infra.dto.UsersProjectDTO;
 
@@ -18,6 +20,20 @@ public class ProjectMapper {
 		projectsDTO.setCategories(project.getCategories());
 		
 		return projectsDTO;
+	}
+	
+	public static Project toEntityWithId(InputProjectDTO projectDTO, User user) {
+		Project project = new Project();
+		
+		project.setId(projectDTO.getId());
+		project.setTitle(projectDTO.getTitle());
+		project.setLink(projectDTO.getLink());
+		project.setDescription(projectDTO.getDescription());
+		project.setImageUrl(projectDTO.getImageUrl());
+		project.setCategories(projectDTO.getCategories());
+		project.setAuthor(user);
+		
+		return project;
 	}
 	
 	public static Project toEntity(CreateProjectDTO projectDTO) {
@@ -42,7 +58,6 @@ public class ProjectMapper {
 		projectDTO.setImageUrl(project.getImageUrl()); 
 		projectDTO.setAuthor(UserMapper.toDomain(project.getAuthor()));
 		projectDTO.setCategories(project.getCategories());
-		projectDTO.setAuthor(UserMapper.toDomain(project.getAuthor()));
 		
 		return projectDTO;
     }

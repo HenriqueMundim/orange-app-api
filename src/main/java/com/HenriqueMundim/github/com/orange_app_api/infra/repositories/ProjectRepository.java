@@ -40,6 +40,11 @@ public class ProjectRepository implements IProjectRepository{
 	@Override
 	public Optional<Project> findById(Integer id) {
 		return this.dao.findById(id);
+	}
+
+	@Override
+	public Project update(Project project) {
+		return this.dao.save(project);
 	}	
 
 }
