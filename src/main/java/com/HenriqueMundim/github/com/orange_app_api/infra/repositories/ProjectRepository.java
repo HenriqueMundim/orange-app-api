@@ -45,6 +45,12 @@ public class ProjectRepository implements IProjectRepository{
 	@Override
 	public Project update(Project project) {
 		return this.dao.save(project);
+	}
+
+	@Override
+	public Page<Project> findAllByUserAndCategory(User user, String category, Integer page, Integer size) {
+		Pageable pageable = PageRequest.of(page, size);
+		return dao.findByUserAndCategory(user, category, pageable);
 	}	
 
 }

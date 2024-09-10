@@ -9,12 +9,9 @@ import com.HenriqueMundim.github.com.orange_app_api.domain.errors.ResourceNotFou
 import com.HenriqueMundim.github.com.orange_app_api.infra.dto.CreateProjectDTO;
 import com.HenriqueMundim.github.com.orange_app_api.infra.dto.InputProjectDTO;
 import com.HenriqueMundim.github.com.orange_app_api.infra.dto.OutputProjectDTO;
-import com.HenriqueMundim.github.com.orange_app_api.infra.dto.UsersProjectDTO;
 import com.HenriqueMundim.github.com.orange_app_api.infra.mapper.ProjectMapper;
 import com.HenriqueMundim.github.com.orange_app_api.infra.repositories.ProjectRepository;
 import com.HenriqueMundim.github.com.orange_app_api.infra.repositories.UserRepository;
-
-import jakarta.transaction.Transactional;
 
 @Service
 public class ProjectService {
@@ -35,6 +32,22 @@ public class ProjectService {
 		}
 		
 		Page<Project> result = this.projectRepository.findAllByUser(isExists, page, size);
+		
+		if (result.isEmpty()) {
+			return null;
+		}
+		
+		return result.map(ProjectMapper::toDomainWithuser);
+	}
+	
+	public Page<OutputProjectDTO> findAllByUserAndCategory(Integer id, String category, Integer page, Integer size) {
+		User isExists = this.userRepository.findById(id).orElse(null);
+		
+		if(isExists == null) {
+			throw new ResourceNotFoundException("User with this ID not found!");
+		}
+		
+		Page<Project> result = this.projectRepository.findAllByUserAndCategory(isExists, category, page, size);
 		
 		if (result.isEmpty()) {
 			return null;

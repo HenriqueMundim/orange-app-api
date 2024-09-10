@@ -38,6 +38,16 @@ public class ProjectController {
 		return ResponseEntity.status(HttpStatus.OK).body(this.projectService.findAllByUser(id, page, size));
 	}
 	
+	@GetMapping(value = "/search")
+	public ResponseEntity<Page<OutputProjectDTO>> getAllUserProjectsByCategory(
+			@RequestParam Integer id,
+			@RequestParam String category,
+			@RequestParam(defaultValue = "0") Integer page,
+			@RequestParam(defaultValue = "9") Integer size
+		) {
+			return ResponseEntity.status(HttpStatus.OK).body(this.projectService.findAllByUserAndCategory(id, category, page, size));
+		}
+	
 	@PostMapping
 	public ResponseEntity<OutputProjectDTO> registerProject(@RequestBody CreateProjectDTO project) {
   		return ResponseEntity.status(HttpStatus.CREATED).body(this.projectService.save(project));
