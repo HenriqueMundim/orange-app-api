@@ -11,9 +11,13 @@ import com.HenriqueMundim.github.com.orange_app_api.domain.entities.User;
 
 @Repository
 public interface ProjectDAO extends JpaRepository<Project, Integer> {
+	
 	@Query("SELECT pr FROM Project pr WHERE pr.author = ?1")
 	Page<Project> findByUser(User user, Pageable pageable);
 	
 	@Query("SELECT pr FROM Project pr JOIN pr.categories c WHERE pr.author = :user AND LOWER(c.name) LIKE LOWER(CONCAT('%', :category, '%'))")
 	Page<Project> findByUserAndCategory(User user, String category, Pageable pageable);
+	
+	@Query("SELECT pr FROM Project pr JOIN pr.categories c WHERE LOWER(c.name) LIKE LOWER(CONCAT('%', :category, '%'))")
+	Page<Project> findByCategory(String category, Pageable pageable);
 }

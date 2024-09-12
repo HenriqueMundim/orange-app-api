@@ -9,9 +9,16 @@ import com.HenriqueMundim.github.com.orange_app_api.domain.entities.User;
 
 public interface IProjectRepository {
 	Page<Project> findAllByUser(User id, Integer page, Integer size);
+	
+	Page<Project> findAll(Integer page, Integer size);
+	
 	Page<Project> findAllByUserAndCategory(User id, String category, Integer page, Integer size);
+	
 	Project save(Project project);
+	
 	void delete(Project project);
+	
 	Optional<Project> findById(Integer id);
+	
 	Project update(Project project);
 }

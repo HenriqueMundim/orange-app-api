@@ -87,5 +87,9 @@ public class ProjectService {
 		
 		return ProjectMapper.toDomainWithuser(this.projectRepository.update(ProjectMapper.toEntityWithId(project, user)));
 	}
+	
+	public Page<OutputProjectDTO> findAll(Integer page, Integer size) {
+		return this.projectRepository.findAll(page, size).map(ProjectMapper::toDomainWithuser);
+	}
   
 }

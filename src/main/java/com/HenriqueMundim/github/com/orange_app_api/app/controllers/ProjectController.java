@@ -1,6 +1,7 @@
 package com.HenriqueMundim.github.com.orange_app_api.app.controllers;
 
 import org.springframework.data.domain.Page;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -17,7 +18,6 @@ import com.HenriqueMundim.github.com.orange_app_api.domain.services.project.Proj
 import com.HenriqueMundim.github.com.orange_app_api.infra.dto.CreateProjectDTO;
 import com.HenriqueMundim.github.com.orange_app_api.infra.dto.InputProjectDTO;
 import com.HenriqueMundim.github.com.orange_app_api.infra.dto.OutputProjectDTO;
-import com.HenriqueMundim.github.com.orange_app_api.infra.dto.UsersProjectDTO;
 
 @RestController
 @RequestMapping(value = "/projects")
@@ -29,9 +29,9 @@ public class ProjectController {
 		this.projectService = projectService;
 	}
 	
-	@GetMapping
+	@GetMapping(value = "/{id}")
 	public ResponseEntity<Page<OutputProjectDTO>> getAllUserProjects(
-		@RequestParam Integer id,
+		@PathVariable Integer id,
 		@RequestParam(defaultValue = "0") Integer page,
 		@RequestParam(defaultValue = "9") Integer size
 	) {
@@ -45,8 +45,16 @@ public class ProjectController {
 			@RequestParam(defaultValue = "0") Integer page,
 			@RequestParam(defaultValue = "9") Integer size
 		) {
-			return ResponseEntity.status(HttpStatus.OK).body(this.projectService.findAllByUserAndCategory(id, category, page, size));
-		}
+		return ResponseEntity.status(HttpStatus.OK).body(this.projectService.findAllByUserAndCategory(id, category, page, size));
+	}
+	
+	@GetMapping
+	public ResponseEntity<Page<OutputProjectDTO>> getAllProject(
+			@RequestParam(defaultValue = "0") Integer page,
+			@RequestParam(defaultValue = "9") Integer size
+		) {
+		return ResponseEntity.status(HttpStatus.OK).body(this.projectService.findAll(page, size));
+	}
 	
 	@PostMapping
 	public ResponseEntity<OutputProjectDTO> registerProject(@RequestBody CreateProjectDTO project) {
@@ -60,7 +68,6 @@ public class ProjectController {
 	
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Void> deleteProject(@PathVariable Integer id) {
-		this.projectService.delete(id);
 		return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 	}
 	
