@@ -14,6 +14,8 @@ public interface IProjectRepository {
 	
 	Page<Project> findAllByUserAndCategory(User id, String category, Integer page, Integer size);
 	
+	Page<Project> findAllByCategory(String category, Integer page, Integer size);
+	
 	Project save(Project project);
 	
 	void delete(Project project);

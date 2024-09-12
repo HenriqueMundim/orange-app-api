@@ -19,5 +19,5 @@ public interface ProjectDAO extends JpaRepository<Project, Integer> {
 	Page<Project> findByUserAndCategory(User user, String category, Pageable pageable);
 	
 	@Query("SELECT pr FROM Project pr JOIN pr.categories c WHERE LOWER(c.name) LIKE LOWER(CONCAT('%', :category, '%'))")
-	Page<Project> findByCategory(String category, Pageable pageable);
+	Page<Project> findAllByCategory(String category, Pageable pageable);
 }

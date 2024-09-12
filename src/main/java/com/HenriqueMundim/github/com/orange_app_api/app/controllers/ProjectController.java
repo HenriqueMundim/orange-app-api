@@ -38,15 +38,25 @@ public class ProjectController {
 		return ResponseEntity.status(HttpStatus.OK).body(this.projectService.findAllByUser(id, page, size));
 	}
 	
-	@GetMapping(value = "/search")
+	@GetMapping(value = "/search/{id}")
 	public ResponseEntity<Page<OutputProjectDTO>> getAllUserProjectsByCategory(
-			@RequestParam Integer id,
+			@PathVariable Integer id,
 			@RequestParam String category,
 			@RequestParam(defaultValue = "0") Integer page,
 			@RequestParam(defaultValue = "9") Integer size
 		) {
 		return ResponseEntity.status(HttpStatus.OK).body(this.projectService.findAllByUserAndCategory(id, category, page, size));
 	}
+	
+	@GetMapping(value = "/search")
+	public ResponseEntity<Page<OutputProjectDTO>> getAllProjectsByCategory(
+			@RequestParam String category,
+			@RequestParam(defaultValue = "0") Integer page,
+			@RequestParam(defaultValue = "9") Integer size
+		) {
+		return ResponseEntity.status(HttpStatus.OK).body(this.projectService.findAllByCategory(category, page, size));
+	}
+	
 	
 	@GetMapping
 	public ResponseEntity<Page<OutputProjectDTO>> getAllProject(

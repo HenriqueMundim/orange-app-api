@@ -55,6 +55,17 @@ public class ProjectService {
 		
 		return result.map(ProjectMapper::toDomainWithuser);
 	}
+	
+	public Page<OutputProjectDTO> findAllByCategory(String category, Integer page, Integer size) {
+
+		Page<Project> result = this.projectRepository.findAllByCategory(category, page, size);
+		
+		if (result.isEmpty()) {
+			return null;
+		}
+		
+		return result.map(ProjectMapper::toDomainWithuser);
+	}
  	
 	public OutputProjectDTO save(CreateProjectDTO projectDTO) {
 		User author = this.userRepository.findById(projectDTO.getUserId()).orElse(null);

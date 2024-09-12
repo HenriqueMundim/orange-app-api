@@ -57,6 +57,12 @@ public class ProjectRepository implements IProjectRepository{
 	public Page<Project> findAll(Integer page, Integer size) {
 		Pageable pageable = PageRequest.of(page, size);
 		return this.dao.findAll(pageable);
+	}
+
+	@Override
+	public Page<Project> findAllByCategory(String category, Integer page, Integer size) {
+		Pageable pageable = PageRequest.of(page, size);
+		return this.dao.findAllByCategory(category, pageable);
 	}	
 
 }
