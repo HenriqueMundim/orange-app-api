@@ -1,6 +1,8 @@
 package com.HenriqueMundim.github.com.orange_app_api.domain.entities;
 
 import com.HenriqueMundim.github.com.orange_app_api.domain.enums.UserRole;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -14,7 +16,9 @@ import java.util.Objects;
 @Table(name = "users")
 public class User implements UserDetails {
 
-    @Id
+	private static final long serialVersionUID = 1L;
+
+	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
@@ -28,6 +32,9 @@ public class User implements UserDetails {
     private String password;
 
     private UserRole role;
+    
+    @OneToMany(mappedBy = "author")
+    private List<Project> projects;
 
     public User() {}
 
@@ -80,8 +87,18 @@ public class User implements UserDetails {
     public void setPassword(String password) {
         this.password = password;
     }
+    
+    
+    @JsonIgnore
+    public List<Project> getProjects() {
+		return projects;
+	}
 
-    @Override
+	public void setProjects(List<Project> projects) {
+		this.projects = projects;
+	}
+
+	@Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return this.role == UserRole.ADMIN ? List.of(new SimpleGrantedAuthority("ROLE_ADMIN"), new SimpleGrantedAuthority("ROLE_USER")) : List.of(new SimpleGrantedAuthority("ROLE_USER"));
     }

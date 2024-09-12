@@ -22,4 +22,8 @@ public class UserService {
 
         return UserMapper.toDomain(user);
     }
+    
+    public User getUserById(Integer id) {
+    	return this.userRepository.findById(id).orElse(null);
+    }
 }

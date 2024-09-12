@@ -3,6 +3,8 @@ package com.HenriqueMundim.github.com.orange_app_api.infra.security;
 import com.HenriqueMundim.github.com.orange_app_api.domain.entities.User;
 import com.HenriqueMundim.github.com.orange_app_api.domain.services.token.TokenService;
 import com.HenriqueMundim.github.com.orange_app_api.infra.repositories.UserRepository;
+import com.auth0.jwt.exceptions.JWTVerificationException;
+
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -10,6 +12,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.jwt.JwtValidationException;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -48,8 +51,8 @@ public class SecurityFilter extends OncePerRequestFilter {
 
             filterChain.doFilter(request, response);
 
-        } catch (Exception exception) {
-            System.out.println(exception.getStackTrace());
+        } catch (JWTVerificationException exception) {
+            throw new JWTVerificationException(exception.getMessage());
         }
     }
 

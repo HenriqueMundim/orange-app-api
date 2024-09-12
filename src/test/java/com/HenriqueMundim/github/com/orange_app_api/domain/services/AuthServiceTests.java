@@ -1,13 +1,11 @@
 package com.HenriqueMundim.github.com.orange_app_api.domain.services;
 
-import static org.junit.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import org.junit.jupiter.api.Assertions;
+import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -56,7 +54,7 @@ public class AuthServiceTests {
 	public void createUserWithInvalidDataThrowsResourceAlreadyExistException() {
 		when(this.userRepository.findByUsername(user.getEmail())).thenReturn(new User());
 		
-		ResourceAlreadyExistsException exception = Assertions.assertThrows(ResourceAlreadyExistsException.class, () -> {
+		ResourceAlreadyExistsException exception = assertThrows(ResourceAlreadyExistsException.class, () -> {
 			this.authService.enroll(user);
 		});
 		
