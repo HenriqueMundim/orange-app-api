@@ -1,0 +1,37 @@
+server:
+    port: ${PORT}
+
+spring:
+  application:
+    name: "orange-app-api"
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: ${SPRING_DATASOURCE_URL}
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
+  jpa:
+    hibernate:
+      ddl-auto: none
+      show-sql: false
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: ${SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_GOOGLE_CLIENT_ID}
+            client-secret: ${SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_GOOGLE_CLIENT_SECRET}
+api:
+  security:
+    token:
+      secret: ${JWT_TOKEN}
+aws:
+  access:
+    key:
+      id: ${AWS_ACCESS_KEY_ID}
+      secret: ${AWS_ACCESS_KEY_SECRET}
+  region:
+    name: ${AWS_REGION_NAME}
+  bucket:
+    name: ${AWS_BUCKET_NAME}
+
+

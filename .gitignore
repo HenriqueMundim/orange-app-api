@@ -4,7 +4,7 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
-application.yaml
+credentials.yaml
 
 ### STS ###
 .apt_generated
