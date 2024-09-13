@@ -1,6 +1,6 @@
 # Use the official Maven image to build the application
 # This image includes Java and Maven
-FROM maven:3.8.6-openjdk-22 AS build
+FROM maven:3.9.1-openjdk-22 AS build
 
 # Set the working directory inside the container
 WORKDIR /app
