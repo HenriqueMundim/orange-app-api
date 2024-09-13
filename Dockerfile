@@ -2,6 +2,8 @@
 # This image includes Java and Maven
 FROM eclipse-temurin:22-jdk-alpine AS build
 
+RUN apk add --no-cache maven
+
 # Set the working directory inside the container
 WORKDIR /app
 
