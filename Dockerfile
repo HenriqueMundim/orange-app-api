@@ -1,6 +1,6 @@
 # Use the official Maven image to build the application
 # This image includes Java and Maven
-FROM maven:3.9.9-eclipse-temurin-22-alpine AS build
+FROM eclipse-temurin:22-jdk-alpine AS build
 
 # Set the working directory inside the container
 WORKDIR /app
@@ -16,7 +16,7 @@ COPY src ./src
 RUN mvn package -DskipTests
 
 # Use a minimal base image to run the application
-FROM openjdk:22-jre-slim
+FROM eclipse-temurin:22-jdk-alpine
 
 # Set the working directory inside the container
 WORKDIR /app
