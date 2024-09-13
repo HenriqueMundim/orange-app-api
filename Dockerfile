@@ -1,6 +1,6 @@
 # Use the official Maven image to build the application
 # This image includes Java and Maven
-FROM maven:3.9.1-openjdk-21 AS build
+FROM maven:3.9.9-eclipse-temurin-22-alpine AS build
 
 # Set the working directory inside the container
 WORKDIR /app
