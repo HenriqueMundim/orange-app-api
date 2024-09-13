@@ -1,7 +1,7 @@
-# Use the official Maven image to build the application
-# This image includes Java and Maven
+# Use Eclipse Temurin with JDK 22 as the base image for building
 FROM eclipse-temurin:22-jdk-alpine AS build
 
+# Install Maven
 RUN apk add --no-cache maven
 
 # Set the working directory inside the container
@@ -17,7 +17,7 @@ COPY src ./src
 # Package the application
 RUN mvn package -DskipTests
 
-# Use a minimal base image to run the application
+# Use Eclipse Temurin with JDK 22 as the base image for runtime
 FROM eclipse-temurin:22-jdk-alpine
 
 # Set the working directory inside the container
@@ -30,4 +30,4 @@ COPY --from=build /app/target/orange-app-api-0.0.1-SNAPSHOT.jar ./orange-app-api
 EXPOSE 8080
 
 # Run the application
-ENTRYPOINT ["java", "-jar", "/app/app.jar"]
+ENTRYPOINT ["java", "-jar", "/app/orange-app-api-0.0.1-SNAPSHOT.jar"]
