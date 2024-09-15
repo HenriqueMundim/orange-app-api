@@ -61,6 +61,7 @@ public class GoogleAuthenticationSuccessHandler implements AuthenticationSuccess
 
         Cookie cookie = new Cookie("token", token);
         cookie.setPath("/");
+        cookie.setDomain("localhost:4200");
         cookie.setMaxAge(60 * 60);
         response.addCookie(cookie);
 
