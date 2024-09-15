@@ -15,6 +15,8 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
+import java.net.CookieManager;
+import java.util.Date;
 import java.util.Objects;
 
 @Component
@@ -59,12 +61,20 @@ public class GoogleAuthenticationSuccessHandler implements AuthenticationSuccess
             token = this.tokenService.generateToken(this.userRepository.findByUsername(username));
         }
 
-        Cookie cookie = new Cookie("token", token);
-        cookie.setPath("/");
-        cookie.setDomain("localhost:4200");
-        cookie.setMaxAge(60 * 60);
-        response.addCookie(cookie);
-
+        this.addCookie(response, token);
         new DefaultRedirectStrategy().sendRedirect(request, response, redirectUrl);
+    }
+
+    public void addCookie(HttpServletResponse response, String token) throws IOException {
+        long expiryTime = System.currentTimeMillis() + (60 * 60 * 1000);
+        Date expiryDate = new Date(expiryTime);
+        String expires = new java.text.SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z").format(expiryDate);
+
+        String cookieHeader = String.format(
+            "token=%s; Path=/; HttpOnly; Secure; Expires=%s; SameSite=Lax",
+            token,
+            expires
+        );
+        response.setHeader("Set-Cookie", cookieHeader);
     }
 }
