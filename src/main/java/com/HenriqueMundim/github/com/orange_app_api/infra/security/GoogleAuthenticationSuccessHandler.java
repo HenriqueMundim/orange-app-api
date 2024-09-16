@@ -63,11 +63,10 @@ public class GoogleAuthenticationSuccessHandler implements AuthenticationSuccess
         cookie.setPath("/");
         cookie.setMaxAge(60 * 60); // 1 hour
         cookie.setSecure(true); // Only sent over HTTPS
-        cookie.setHttpOnly(true); // Not accessible via JavaScript
         response.addCookie(cookie);
 
         // Set the SameSite attribute via header if needed
-        response.setHeader("Set-Cookie", "token=" + token + "; Path=/; Max-Age=" + (60 * 60) + "; Secure; HttpOnly; SameSite=None");
+        response.setHeader("Set-Cookie", "token=" + token + "; Path=/; Max-Age=" + (60 * 60) + "; Secure; SameSite=None");
 
         new DefaultRedirectStrategy().sendRedirect(request, response, redirectUrl);
     }
