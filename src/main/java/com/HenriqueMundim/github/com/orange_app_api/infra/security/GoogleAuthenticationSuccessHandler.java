@@ -63,6 +63,7 @@ public class GoogleAuthenticationSuccessHandler implements AuthenticationSuccess
         cookie.setPath("/");
         cookie.setMaxAge(60 * 60); // 1 hour
         cookie.setSecure(true); // Only sent over HTTPS
+        cookie.setHttpOnly(false); // Not accessible via JavaScript
         response.addCookie(cookie);
 
         // Set the SameSite attribute via header if needed
